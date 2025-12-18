@@ -9,8 +9,9 @@
 	<url>http://maven.apache.org</url>
 	
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<docker.image.prefix>kammana</docker.image.prefix>
-		<!-- Added these two lines to fix the Java 17 compatibility error -->
+		<!-- Java 17 compatibility for Amazon Linux 2023 -->
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 	</properties>	
@@ -21,21 +22,40 @@
 		    <artifactId>bedrock-runtime-maven</artifactId>
 		    <version>5.1.2</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13.2</version> <!-- Updated from 3.8.1 for Java 17 compatibility -->
+			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Fixes: "Source option 5 is no longer supported" -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
+			</plugin>
+			<!-- Fixes: "Unable to load the mojo 'war' ... API incompatibility" -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.2</version>
+			</plugin>
+		</plugins>
+	</build>
 	
 	<distributionManagement>
 		 <snapshotRepository>
 		    <id>nexusRepo</id>
 		    <url>13.233.230.166</url>
 		 </snapshotRepository>
-		
 		<repository>
 		    <id>nexusRepo</id>
 		    <url>13.233.230.166</url>
@@ -44,9 +64,9 @@
 	
 	<pluginRepositories>
 	    <pluginRepository>    
-		<id>maven-central</id> <!-- Recommended ID -->
+		<id>maven-central</id>
 		<name>Maven Central</name>
-		<url>repo1.maven.org</url> <!-- Updated to HTTPS -->
+		<url>repo1.maven.org</url>
 	    </pluginRepository>
 	</pluginRepositories>
 </project>
