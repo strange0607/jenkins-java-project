@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="maven.apache.org" xmlns:xsi="www.w3.org"
+	xsi:schemaLocation="maven.apache.org maven.apache.org">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>in.RAHAM</groupId>
 	<artifactId>NETFLIX</artifactId>
@@ -10,7 +10,11 @@
 	
 	<properties>
 		<docker.image.prefix>kammana</docker.image.prefix>
+		<!-- Added these two lines to fix the Java 17 compatibility error -->
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>	
+
 	<dependencies>
 		<dependency>
 		    <groupId>com.oracle.bedrock</groupId>
@@ -21,31 +25,28 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.13.2</version> <!-- Updated from 3.8.1 for Java 17 compatibility -->
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 	
 	<distributionManagement>
 		 <snapshotRepository>
 		    <id>nexusRepo</id>
-		    <url>http://13.233.230.166:8081/repository/maven-snapshots/</url>
+		    <url>13.233.230.166</url>
 		 </snapshotRepository>
 		
 		<repository>
 		    <id>nexusRepo</id>
-		    <url>http://13.233.230.166:8081/repository/maven-releases/</url>
+		    <url>13.233.230.166</url>
 		</repository>
   	</distributionManagement>
 	
 	<pluginRepositories>
 	    <pluginRepository>    
-		<id>maven1</id>
-		<name>Maven.org</name>
-		<url>http://repo1.maven.org/maven2</url>
+		<id>maven-central</id> <!-- Recommended ID -->
+		<name>Maven Central</name>
+		<url>repo1.maven.org</url> <!-- Updated to HTTPS -->
 	    </pluginRepository>
 	</pluginRepositories>
-
-	
 </project>
